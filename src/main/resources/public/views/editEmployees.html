@@ -1,0 +1,89 @@
+<div class="container">
+
+	<form name="editTasks"
+		ng-controller="EditEmployeesController as editTaskCtrl"
+		ng-submit="editTasks.$valid && editTaskCtrl.editTask(editTaskCtrl)"
+		autocomplete="off" novalidate>
+
+		<h3>
+			<span class="glyphicon glyphicon-pencil"></span> Edit Employee
+		</h3>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-info"><h4>Emp Name</h4></th>
+					<th class="text-info"><h4>Date</h4></th>
+					<th class="text-info"><h4>city</h4></th>
+					<th class="text-info"><h4>phone</h4></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td height="40">{{editTaskCtrl.empname}}</td>
+					<td>{{editTaskCtrl.joindate | date:'dd/MM/yyyy @ h:mma'}}</td>
+					<td>{{editTaskCtrl.city}}</td>
+					<td>{{editTaskCtrl.phone}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<fieldset class="form-group"
+			ng-class="{ 'has-error' : editTasks.empname.$invalid && !editTasks.empname.$pristine }">
+			<label class="control-label">Emp Name</label> <input
+				class="form-control" ng-model="editTaskCtrl.empname"
+				ng-minlength="5" ng-maxlength="30" name="empname"
+				placeholder="Write Emp Name or brief description." required></input>
+			<p ng-show="editTasks.empname.$error.minlength" class="help-block">Emp
+				Name is too short.</p>
+			<p ng-show="editTasks.empname.$error.maxlength" class="help-block">Emp
+				Name is too long.</p>
+		</fieldset>
+		<fieldset class="form-group">
+			<label class="control-label">Join Date</label>
+			<div ng-controller="DateTimePickerController" class="container">
+				<datetimepicker min-date="minDate" hour-step="hourStep"
+					minute-step="minuteStep" ng-model="editTaskCtrl.joindate"
+					show-meridian="showMeridian" date-format="{{format}}"
+					date-options="dateOptions" date-disabled="disabled(date, mode)"
+					datepicker-append-to-body="false" readonly-date="false"
+					hidden-time="true" hidden-date="false" name="datetimepicker"
+					show-spinners="true" readonly-time="false" date-opened="dateOpened">
+				</datetimepicker>
+		</fieldset>
+
+		<fieldset class="form-group"
+			ng-class="{ 'has-error' : editTasks.city.$invalid && !editTasks.city.$pristine }">
+			<label class="control-label">city</label> <input class="form-control"
+				ng-model="editTaskCtrl.city" ng-minlength="3" ng-maxlength="15"
+				name="city" placeholder="Write a city for this task." required></input>
+			<p ng-show="editTasks.city.$error.minlength" class="help-block">city
+				is too short.</p>
+			<p ng-show="editTasks.city.$error.maxlength" class="help-block">city
+				is too long.</p>
+		</fieldset>
+
+
+		<fieldset class="form-group"
+			ng-class="{ 'has-error' : editTasks.phone.$invalid && !editTasks.phone.$pristine }">
+			<label class="control-label">phone</label> <input
+				class="form-control" ng-model="editTaskCtrl.phone"
+				ng-minlength="3" ng-maxlength="15" name="phone"
+				placeholder="phone number of he employee" required></input>
+			<p ng-show="editTasks.phone.$error.minlength" class="help-block">phone
+				is too short.</p>
+			<p ng-show="editTasks.phone.$error.maxlength" class="help-block">phone
+				is too long.</p>
+		</fieldset>
+
+
+		<fieldset class="form-group">
+			<a href="#/">
+				<button type=button class="btn btn-warning">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+			</a> <input type="submit" class="btn btn-success pull-right" value="Save" />
+		</fieldset>
+	</form>
+
+</div>

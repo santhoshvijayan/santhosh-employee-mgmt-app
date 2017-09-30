@@ -1,0 +1,128 @@
+<div class="container" ng-controller="TasksActionsController">
+
+	<h3>
+		<span class="glyphicon glyphicon-time"></span> Employees List
+	</h3>
+
+	<div>
+		<br />
+		<div class="input-group">
+			<input type="text" class="form-control" ng-model="searchText" /> <span
+				class="input-group-addon"> <i
+				class="glyphicon glyphicon-search"></i>
+			</span>
+		</div>
+	</div>
+	<br />
+
+	<div ng-show="CarsView" class="row">
+		<div class="col-lg-3 col-sm-6"
+			ng-repeat="task in tasks | filter:searchText | filter: { isactive:'true'} | orderBy:'-id'">
+
+			<div class="card hovercard">
+				<div class="cardheader"></div>
+				<div class="avatar">
+					<img alt="" src="http://lorempixel.com/100/100/people/9/">
+				</div>
+				<div class="info">
+					<div class="title">
+						<a  href="#/viewEmployee{{task.id}}">{{task.empname}}</a>
+					</div>
+					<div class="desc">{{task.city}}</div>
+					<div class="desc">{{task.phone}}</div>
+				</div>
+				<div class="bottom">
+					<td><a href='#/viewEmployee{{task.id}}' style="color: #41cac0">
+							<span class="glyphicon glyphicon-log-in" style='font-size: 17px'></span>
+					</a> &nbsp;<a href='#/editEmployee{{task.id}}' style="color: #41cac0">
+							<span class="glyphicon glyphicon-pencil" style='font-size: 17px'></span>
+					</a> &nbsp; <a ng-href='' ng-click='deleteTask(task.id)'
+						style="color: #ff6c60"> <span
+							class="glyphicon glyphicon-trash" style='font-size: 17px'></span>
+					</a></td>
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<button type=button class="btn btn-danger" ng-click="ShowHide()">
+				<span class="glyphicon glyphicon-th-list"></span>
+			</button>
+			<a href="#/addEmployee">
+				<button type=button class="btn btn-success">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+			</a>
+		</div>
+	</div>
+	<div ng-show="ListView">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="text-info">Name</th>
+					<th class="text-info">Joining Date</th>
+					<th class="text-info">City</th>
+					<th class="text-info">Phone</th>
+					<th width="150" class="text-info">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					ng-repeat="task in tasks | filter:searchText | filter: { isactive:'true'} | orderBy:'-id'">
+					<td>{{task.empname}}</td>
+					<td>{{task.joindate | date:'dd/MM/yyyy'}}</td>
+					<td>{{task.city}}</td>
+					<td>{{task.phone}}</td>
+					<td><a href='#/viewEmployee{{task.id}}' style="color: #41cac0">
+							<span class="glyphicon glyphicon-log-in" style='font-size: 17px'></span>
+					</a> &nbsp;<a href='#/editEmployee{{task.id}}' style="color: #41cac0">
+							<span class="glyphicon glyphicon-pencil" style='font-size: 17px'></span>
+					</a> &nbsp; <a ng-href='' ng-click='deleteTask(task.id)'
+						style="color: #ff6c60"> <span
+							class="glyphicon glyphicon-trash" style='font-size: 17px'></span>
+					</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+		<div class="row">
+			<button type=button class="btn btn-danger" ng-click="ShowHide()">
+				<span class="glyphicon glyphicon-th"></span>
+			</button>
+			<a href="#/addEmployee">
+				<button type=button class="btn btn-success">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
+			</a>
+		</div>
+	</div>
+
+	<br>
+	<div ng-controller="MyCtrl">
+		<button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+			accept=".xlsx, .xls, .csv" ngf-max-height="1000" ngf-max-size="1MB"
+			class="btn btn-danger">
+			<span class="glyphicon glyphicon-import"></span>&nbsp;Import Data
+		</button>
+
+		File:
+		<div style="font: smaller">
+			{{f.name}} {{errFile.name}} {{errFile.$error}}
+			{{errFile.$errorParam}} <span class="progress"
+				ng-show="f.progress >= 0">
+				<div style="width: {{f.progress" ng-bind="f.progress + '%'"></div>
+			</span>
+		</div>
+
+		{{errorMsg}}
+	</div>
+
+
+
+
+	<button ng-json-export-excel data="tasks"
+		report-fields="{empname: 'empname', city: 'city', phone: 'phone', joindate: 'joindate', isactive: 'isactive'}"
+		filename=" 'export-excel' " class="btn btn-danger">
+		<span class="glyphicon glyphicon-export"></span>&nbsp;Export Data
+	</button>
+</div>

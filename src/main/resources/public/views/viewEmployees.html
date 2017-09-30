@@ -1,0 +1,40 @@
+<div class="container">
+
+	<form name="editTasks"
+		ng-controller="EditEmployeesController as editTaskCtrl"
+		ng-submit="editTasks.$valid && editTaskCtrl.editTask(editTaskCtrl)"
+		autocomplete="off" novalidate>
+
+		<h3>
+			<span class="glyphicon glyphicon-pencil"></span> View Employee
+		</h3>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="text-info"><h4>Emp Name</h4></th>
+					<th class="text-info"><h4>Date</h4></th>
+					<th class="text-info"><h4>city</h4></th>
+					<th class="text-info"><h4>phone</h4></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td height="40">{{editTaskCtrl.empname}}</td>
+					<td>{{editTaskCtrl.joindate | date:'dd/MM/yyyy @ h:mma'}}</td>
+					<td>{{editTaskCtrl.city}}</td>
+					<td>{{editTaskCtrl.phone}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+				<fieldset class="form-group">
+			<a href="#/">
+				<button type=button class="btn btn-warning">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+		
+		</fieldset>
+	</form>
+
+</div>
